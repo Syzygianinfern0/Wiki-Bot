@@ -1,0 +1,30 @@
+%YAML 1.1
+---
+actions:
+- utter_goodbye
+- utter_greet
+- action_get_wiki
+config:
+  store_entities_as_slots: true
+entities:
+- wiki_query
+forms: []
+intents:
+- goodbye:
+    use_entities: true
+- greet:
+    use_entities: true
+- wiki_summary:
+    use_entities: true
+slots:
+  wiki_query:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.TextSlot
+templates:
+  utter_goodbye:
+  - text: Nice meeting you!
+  - text: Farewell
+  utter_greet:
+  - text: Hello!
+  - text: How may I help you today?
