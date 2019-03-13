@@ -9,7 +9,7 @@ import json
 import tweepy
 import wikipedia
 
-class ActionGetTrends(Action):
+class ActionGetWiki(Action):
     def name(self):
         return "action_get_wiki"
 

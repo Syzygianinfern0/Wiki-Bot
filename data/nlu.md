@@ -21,4 +21,6 @@
 - howdy
 - sup bot
 
-## intent:wiki_it
+## intent:wiki_summary
+- Can you tell me something about [Delhi](wiki_query)
+- Give me a summary of [Modi](wiki_query)
