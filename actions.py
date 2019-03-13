@@ -7,42 +7,29 @@ from rasa_core_sdk.events import SlotSet
 import requests
 import json
 import tweepy
+import wikipedia
 
-consumer_key = 'WPKbUCLAEuYlf1gEPavI0YQmJ'
-consumer_secret = 'Y18jXjayFQmpeeVaiZSyKBwQSUjCI0rmP3O8fvEE5N84Lop3Td'
-access_token = '3438102134-1VH2PeR2uijEOxg54YBbULyRJHwKYp8aW8BW4tH'
-access_token_secret = 'YrlQdykFPeybRP92qgla3ZZ8qnJDIgaFKgVfdTEu5qjiZ'
-
-"""
-https://www.metaweather.com/api/location/search/?query=delhi
-"""
 class ActionGetTrends(Action):
     def name(self):
-        return "action_get_trends"
+        return "action_get_wiki"
 
     def run(self, dispatcher, tracker, domain):
-        city = tracker.get_slot('location')
-
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-        auth.set_access_token(access_token, access_token_secret)
-        api = tweepy.API(auth)
-
-        url_for_woeid = 'https://www.metaweather.com/api/location/search/?query=' + city
+        query = tracker.get_slot('wiki_query')
 
         try:
-            request = json.loads(requests.get(url_for_woeid).text)
-            woeid = request[0]
-            woeid = woeid['woeid']
+            query = wikipedia.summary(query)
+            query = '.'.join(query.split('.')[:3]) + '.'
+            while True:
+                s = query.find('(')
+                if s is -1:
+                    break
+                e = query.find(')')
+                query = query[:s-1] + query[e+1:]
+            dispatcher.utter_message(query)
 
-            trends1 = api.trends_place(woeid)
-            data = trends1[0]
-            trends = data['trends']
-            names = [trend['name'] for trend in trends]
-            top_5_names = names[0:4]
-            trendsName = ' '.join(top_5_names)
-            dispatcher.utter_message(trendsName)
+        except wikipedia.exceptions.PageError as err:
+            dispatcher.utter_message("Sorry, I can't wiki that")
 
-        except tweepy.error.TweepError as err:
-            dispatcher.utter_message("Sorry, I don't have access to that.")
+        return [SlotSet("wiki", query)]
 
-        return [SlotSet("location", city)]
+
