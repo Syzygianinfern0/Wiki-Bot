@@ -15,6 +15,7 @@ class ActionGetWiki(Action):
 
     def run(self, dispatcher, tracker, domain):
         query = tracker.get_slot('wiki_query')
+        query_bak = query
 
         try:
             query = wikipedia.summary(query)
@@ -30,12 +31,12 @@ class ActionGetWiki(Action):
                     skip2c -= 1
                 elif skip1c == 0 and skip2c == 0:
                     ret += i
-                    
+
             dispatcher.utter_message(ret)
 
         except wikipedia.exceptions.PageError as err:
             dispatcher.utter_message("Sorry, I can't wiki that")
 
-        return [SlotSet("wiki", query)]
+        return [SlotSet("wiki_query", query_bak)]
 
 
