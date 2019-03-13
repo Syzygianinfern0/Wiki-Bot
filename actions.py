@@ -19,13 +19,19 @@ class ActionGetWiki(Action):
         try:
             query = wikipedia.summary(query)
             query = '.'.join(query.split('.')[:3]) + '.'
-            while True:
-                s = query.find('(')
-                if s is -1:
-                    break
-                e = query.find(')')
-                query = query[:s-1] + query[e+1:]
-            dispatcher.utter_message(query)
+            
+            ret = ''
+            skip1c = 0
+            skip2c = 0
+            for i in query:
+                if i == '(':
+                    skip1c += 1
+                elif i == ')'and skip2c > 0:
+                    skip2c -= 1
+                elif skip1c == 0 and skip2c == 0:
+                    ret += i
+                    
+            dispatcher.utter_message(ret)
 
         except wikipedia.exceptions.PageError as err:
             dispatcher.utter_message("Sorry, I can't wiki that")

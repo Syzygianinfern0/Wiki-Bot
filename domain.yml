@@ -1,25 +1,21 @@
-
 actions:
 - utter_goodbye
 - utter_greet
-- action_get_trends
-- utter_ask_location
+- action_get_wiki
 
 entities:
-- location
+- wiki_query
 
 intents:
-- trend_query_loc
 - goodbye
 - greet
+- wiki_summary
 
 slots:
-  location:
+  wiki_query:
     type: text
 
 templates:
-  utter_ask_location:
-  - text: In which location?
   utter_goodbye:
   - text: Nice meeting you!
   - text: Farewell
