@@ -20,5 +20,5 @@
     "rasa_core.policies.memoization.MemoizationPolicy",
     "rasa_core.policies.fallback.FallbackPolicy"
   ],
-  "trained_at": "20190313-190413"
+  "trained_at": "20190313-191414"
 }

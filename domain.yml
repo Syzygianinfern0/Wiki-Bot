@@ -1,20 +1,18 @@
+%YAML 1.1
+---
 actions:
+- action_get_wiki
 - utter_goodbye
 - utter_greet
-- action_get_wiki
-
 entities:
 - wiki_query
-
 intents:
-- goodbye
 - greet
 - wiki_summary
-
+- goodbye
 slots:
   wiki_query:
     type: text
-
 templates:
   utter_goodbye:
   - text: Nice meeting you!

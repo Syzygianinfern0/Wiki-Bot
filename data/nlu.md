@@ -10,6 +10,7 @@
 - Bye
 - Ok Bye
 - Thank You
+- Bye
 
 ## intent:greet
 - hey
@@ -20,6 +21,7 @@
 - hey there
 - howdy
 - sup bot
+- hi
 
 ## intent:wiki_summary
 - Can you tell me something about [Delhi](wiki_query)
@@ -31,3 +33,5 @@
 - Give me a summary of [Ganga](wiki_query)
 - Give me a summary of [Christmas](wiki_query)
 - Give me a summary of [USA](wiki_query)
+- give a summary of [Chennai](wiki_query)
+- Tell me something about [Ferrari](wiki_query)
